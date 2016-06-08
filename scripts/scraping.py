@@ -16,10 +16,7 @@ for year in range(9,16):
                 vals.append(td.getchildren()[0].text)
         if len(vals) > 0:
             month_day = re.split('[月|日]',vals[0])[:2]
-            vals.remove(vals[0])
-            vals.insert(0, month_day[1])
-            vals.insert(0, month_day[0])
-            vals.insert(0, str(2000+year))
+            vals[0] = "{0}/{1}/{2}".format(2000+year,month_day[0],month_day[1])
             f.write('"' + '","'.join(vals) + '"')
             f.write('\n')
 f.close()
