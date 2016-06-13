@@ -84,5 +84,5 @@ def create_result():
             output("http://2689web.com/{0}/inter/{1}{2}.html", f, 'in', year, code)
     f.close()
 
-# create_order()
+create_order()
 create_result()
