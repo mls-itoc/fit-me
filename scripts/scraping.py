@@ -2,6 +2,7 @@
 import requests
 import re
 import os
+import csv
 from pyquery import PyQuery as pq
 
 def create_order():
@@ -84,5 +85,25 @@ def create_result():
             output("http://2689web.com/{0}/inter/{1}{2}.html", f, 'in', year, code)
     f.close()
 
-create_order()
-create_result()
+def ml_data():
+    def key(row):
+        return "{0}-{1}-{2}".format(row[0],row[1],row[2])
+    table = {}
+    for row in csv.reader(open('order.csv', 'r')):
+        row.insert(len(row), "")
+        table[key(row)] = row[3:]
+    for row in csv.reader(open('result.csv', 'r')):
+        if key(row) in table:
+            val = table[key(row)]
+            val[len(val)-1] = row[11]
+    f = open("ml_data.csv", "w")
+    f.write("１番,２番,３番,４番,５番,６番,７番,８番,９番,結果\n")
+    for row in table.values():
+        if row[len(row)-1] != '':
+            f.write('"' + '","'.join(row) + '"')
+            f.write('\n')
+    f.close()
+
+# create_order()
+# create_result()
+ml_data()

@@ -27,4 +27,4 @@ pip install pyquery
 python scripts/scraping.py
 ```
 
-order.csvが作成されます
+ml_data.csvが作成されます
